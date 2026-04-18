@@ -51,7 +51,7 @@ const Login = () => {
           </div>
           <Button
             type="button"
-            onClick={() => navigate("/clinic/overview")}
+            onClick={() => navigate("/doctor/overview")}
             className="w-full h-11 md:h-12 mt-2 md:mt-4"
           >
             Sign In
