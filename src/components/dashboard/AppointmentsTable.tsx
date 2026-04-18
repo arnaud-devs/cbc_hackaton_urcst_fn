@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
 import {
   Table,
   TableBody,
@@ -187,32 +186,6 @@ const AppointmentsTable = ({
                   <p className="text-muted-foreground text-xs">{booking.clientPhone}</p>
                 </div>
               </TableCell>
-              {!showRecent && (
-                <TableCell>
-                  <div className="flex gap-1 items-center">
-                    <p>{booking.doctor?.name ?? "—"}</p>
-                    <Button
-                      variant={"ghost"}
-                      className="group h-fit !bg-transparent !p-0"
-                      onClick={() => {
-                        setDialogType("change-doctor");
-                        setIsOpen(true);
-                      }}
-                      disabled={
-                        selectedAppointment === "all" ||
-                        !!selectedAppointment?.length
-                      }
-                    >
-                      <Icon
-                        icon="fluent-mdl2:user-sync"
-                        width="18"
-                        height="20"
-                        className="text-primary font-bold cursor-pointer stroke-primary group-hover:stroke-[60]"
-                      />
-                    </Button>
-                  </div>
-                </TableCell>
-              )}
               <TableCell>{booking.service?.name ?? "—"}</TableCell>
               <TableCell>
                 <AppointmentStatus status={normalizeStatus(booking.status)} />
