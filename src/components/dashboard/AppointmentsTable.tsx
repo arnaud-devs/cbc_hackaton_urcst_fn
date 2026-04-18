@@ -59,6 +59,7 @@ const AppointmentsTable = ({
   >();
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -68,10 +69,12 @@ const AppointmentsTable = ({
       .then((res) => res.json())
       .then((json) => {
         if (json.status === "success") {
-          setBookings(json.data);
+          setBookings(Array.isArray(json.data) ? json.data : []);
+        } else {
+          setFetchError(json.message ?? "Failed to load appointments.");
         }
       })
-      .catch(() => {})
+      .catch(() => setFetchError("Network error. Could not load appointments."))
       .finally(() => setLoading(false));
   }, []);
 
@@ -92,6 +95,14 @@ const AppointmentsTable = ({
     return (
       <div className="flex justify-center py-10 text-muted-foreground text-sm">
         Loading appointments…
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-3">
+        {fetchError}
       </div>
     );
   }
@@ -123,7 +134,6 @@ const AppointmentsTable = ({
           <TableHead className="px-2">Appointment Date</TableHead>
           {!showRecent && <TableHead>Booked On</TableHead>}
           <TableHead>Patient</TableHead>
-          {!showRecent && <TableHead>Doctor Assigned</TableHead>}
           <TableHead>Service</TableHead>
           <TableHead>Status</TableHead>
           {!showRecent && <TableHead>Action</TableHead>}
@@ -168,7 +178,7 @@ const AppointmentsTable = ({
               </TableCell>
               {!showRecent && (
                 <TableCell className="text-[.8rem]">
-                  {format(new Date(booking.createdAt), "dd MMM, yyyy")}
+                  {booking.createdAt ? format(new Date(booking.createdAt), "dd MMM, yyyy") : "—"}
                 </TableCell>
               )}
               <TableCell>
