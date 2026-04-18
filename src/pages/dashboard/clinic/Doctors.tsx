@@ -13,7 +13,7 @@ const Doctors = () => {
   useEffect(() => {
     setDashTitle("Doctors");
     setBreadcrumb(undefined);
-    setActiveItem("Doctors");
+    setActiveItem("My Patients");
   }, [setActiveItem, setBreadcrumb, setDashTitle]);
 
   return (

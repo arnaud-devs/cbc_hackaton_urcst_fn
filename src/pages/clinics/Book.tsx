@@ -15,7 +15,7 @@ export const Book = () => {
   const [movedForward, setMovedForward] = useState(false);
 
   const { setActiveItem } = useNavbarContext();
-  setActiveItem("Clinics");
+  setActiveItem("Doctors");
 
   const navigate = useNavigate();
 

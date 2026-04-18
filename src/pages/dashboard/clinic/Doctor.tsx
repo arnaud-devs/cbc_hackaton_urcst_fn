@@ -16,7 +16,7 @@ const Doctor = () => {
       links: [{ label: "Doctors", href: "Doctors" }],
       page: "Dr. John Doe",
     });
-    setActiveItem("Doctors");
+    setActiveItem("My Patients");
   }, [setActiveItem, setBreadcrumb, setDashTitle]);
 
   return (

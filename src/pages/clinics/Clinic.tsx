@@ -17,7 +17,7 @@ const data = {
 const Clinic = () => {
   useDocumentTitle(data.title);
   const { setActiveItem, setBreadcrumb } = useNavbarContext();
-  setActiveItem("Clinics");
+  setActiveItem("Doctors");
 
   useEffect(() => {
     setBreadcrumb({
