@@ -18,7 +18,7 @@ const PublicProfile = () => {
       links: [{ label: "Public", href: "?tab=profile" }],
       page: "Profile",
     });
-    setActiveItem("Public Profile");
+    setActiveItem("My Profile");
   }, [setActiveItem, setBreadcrumb, setDashTitle]);
 
   return (

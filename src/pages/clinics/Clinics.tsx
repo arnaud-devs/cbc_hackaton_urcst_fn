@@ -7,7 +7,7 @@ import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 const Clinics = () => {
   const { setActiveItem } = useNavbarContext();
-  setActiveItem("Clinics");
+  setActiveItem("Doctors");
   useDocumentTitle("Clinics");
 
   return (
