@@ -68,7 +68,7 @@ npm run dev
 
 <p align="center">
   <a href="https://github.com/aimedivin">
-    <img src="https://avatars.githubusercontent.com/aimedivin" width="50px" height="50px" alt="aimedivin"/>
+    <img src="https://avatars.githubusercontent.com/tuyisenge250" width="50px" height="50px" alt="aimedivin"/>
   </a>
   &nbsp;&nbsp;
   <a href="https://github.com/arnaud-devs">
