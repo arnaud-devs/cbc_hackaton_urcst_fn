@@ -68,12 +68,12 @@ const EditArticleForm = ({ article, onSuccess, onCancel }: EditArticleFormProps)
     if (checked) {
       setFormData((prev) => ({
         ...prev,
-        categories: [...prev.categories, categoryTitle],
+        categories: [...(prev.categories ?? []), categoryTitle],
       }));
     } else {
       setFormData((prev) => ({
         ...prev,
-        categories: prev.categories.filter((title) => title !== categoryTitle),
+        categories: (prev.categories ?? []).filter((title) => title !== categoryTitle),
       }));
     }
   };
@@ -133,7 +133,7 @@ const EditArticleForm = ({ article, onSuccess, onCancel }: EditArticleFormProps)
                 <label key={category.id} className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={formData.categories.includes(category.title)}
+                    checked={(formData.categories ?? []).includes(category.title)}
                     onChange={(e) => handleCategoryChange(category.title, e.target.checked)}
                     className="rounded"
                   />

@@ -36,7 +36,8 @@ export type ItemsTitle =
   // Admin items
   | "Doctors"
   | "Bookings"
-  | "Articles";
+  | "Articles"
+  | "Services";
 
 const items: {
   title: ItemsTitle;
