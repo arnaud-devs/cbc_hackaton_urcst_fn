@@ -1,37 +1,25 @@
-export interface ArticleCategory {
-  id: string;
-  title: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 export interface Article {
   id: string;
   title: string;
-  coverPhoto: string;
   content: string;
-  status: 'DRAFT' | 'PUBLISHED';
+  category: string;
+  views: number;
   createdAt: string;
-  updatedAt: string;
-  ArticleCategories: ArticleCategory[];
+  admin: { name: string };
 }
 
 export interface ArticlesResponse {
   status: string;
-  message: string;
   data: Article[];
 }
 
 export interface CreateArticleRequest {
   title: string;
-  coverPhoto: string;
   content: string;
-  status: 'DRAFT' | 'PUBLISHED';
-  categories: string[];
+  category: string;
 }
 
 export interface CreateArticleResponse {
   status: string;
-  message: string;
   data: Article;
 }

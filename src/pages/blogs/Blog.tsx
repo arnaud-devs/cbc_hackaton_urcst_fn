@@ -53,15 +53,13 @@ const Blog = () => {
             })}
           </p>
           <div className="flex space-x-1 sm:space-x-2">
-            {article.ArticleCategories.map((category) => (
-              <BlogCategory key={category.id} category={category.title} />
-            ))}
+            <BlogCategory category={article.category} />
           </div>
         </div>
       </div>
       <figure className="w-full h-[13rem] xs:h-[16rem] sm:h-[22rem] md:h-[25rem] lg:h-[30rem] xl:h-[33rem] overflow-hidden">
         <img
-          src={article.coverPhoto}
+          src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=1200&h=600&fit=crop"
           alt={article.title}
           className="size-full object-cover"
         />

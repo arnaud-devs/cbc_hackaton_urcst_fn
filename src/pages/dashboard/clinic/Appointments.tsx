@@ -136,7 +136,7 @@ const Appointments = () => {
           </div>
         </div>
 
-        <AppointmentsTable setIsBulkSelection={setIsBulkSelection} />
+        <AppointmentsTable setIsBulkSelection={setIsBulkSelection} apiPath="doctor/bookings" />
         <Pagination
           size={isTabletOrMobile ? "small" : "medium"}
           count={10}

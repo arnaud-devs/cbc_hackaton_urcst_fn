@@ -6,7 +6,6 @@ export const useArticles = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isUsingMockData, setIsUsingMockData] = useState(false);
 
   const fetchArticles = async () => {
     setLoading(true);
@@ -14,18 +13,8 @@ export const useArticles = () => {
     try {
       const response = await articleService.getArticles();
       setArticles(response.data);
-      
-      // Check if we're using mock data
-      const isMockData = response.message.includes('mock data') || 
-                        response.data.every(article => article.id.startsWith('mock-'));
-      setIsUsingMockData(isMockData);
-      
-      if (isMockData) {
-        console.warn('Using mock data - API may be unavailable');
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch articles');
-      setIsUsingMockData(false);
     } finally {
       setLoading(false);
     }
@@ -50,11 +39,9 @@ export const useArticles = () => {
     setLoading(true);
     setError(null);
     try {
-      const updatedArticle = await articleService.updateArticle(id, articleData);
-      setArticles(prev => prev.map(article => 
-        article.id === id ? updatedArticle : article
-      ));
-      return updatedArticle;
+      const updated = await articleService.updateArticle(id, articleData);
+      setArticles(prev => prev.map(a => (a.id === id ? updated : a)));
+      return updated;
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to update article');
       throw err;
@@ -68,28 +55,10 @@ export const useArticles = () => {
     setError(null);
     try {
       await articleService.deleteArticle(id);
-      setArticles(prev => prev.filter(article => article.id !== id));
+      setArticles(prev => prev.filter(a => a.id !== id));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to delete article');
       throw err;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const searchArticles = async (query: string) => {
-    if (!query.trim()) {
-      fetchArticles();
-      return;
-    }
-    
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await articleService.searchArticles(query);
-      setArticles(response.data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to search articles');
     } finally {
       setLoading(false);
     }
@@ -99,17 +68,7 @@ export const useArticles = () => {
     fetchArticles();
   }, []);
 
-  return {
-    articles,
-    loading,
-    error,
-    isUsingMockData,
-    fetchArticles,
-    createArticle,
-    updateArticle,
-    deleteArticle,
-    searchArticles,
-  };
+  return { articles, loading, error, fetchArticles, createArticle, updateArticle, deleteArticle };
 };
 
 export const useArticle = (id: string) => {
@@ -117,29 +76,16 @@ export const useArticle = (id: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchArticle = async () => {
+  useEffect(() => {
     if (!id) return;
-    
     setLoading(true);
     setError(null);
-    try {
-      const articleData = await articleService.getArticleById(id);
-      setArticle(articleData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch article');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchArticle();
+    articleService
+      .getArticleById(id)
+      .then(setArticle)
+      .catch(err => setError(err instanceof Error ? err.message : 'Failed to fetch article'))
+      .finally(() => setLoading(false));
   }, [id]);
 
-  return {
-    article,
-    loading,
-    error,
-    refetch: fetchArticle,
-  };
+  return { article, loading, error };
 };

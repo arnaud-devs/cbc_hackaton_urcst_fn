@@ -2,42 +2,106 @@ import AuthNavigation from "@/components/auth/AuthNavigation";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { EyeOff, Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import googleIcon from "@/assets/google_icon.png";
 import facebookIcon from "@/assets/facebook_icon.png";
 import ForgotPassword from "@/components/auth/ForgotPassword";
+import { useState } from "react";
+
+const API_BASE = import.meta.env.VITE_API_URL ?? "";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      let json;
+      try { json = await res.json(); } catch { json = {}; }
+      if (!res.ok) {
+        setError(json.message ?? "Login failed. Please try again.");
+        return;
+      }
+      const user = json.data.admin ?? json.data.doctor ?? json.data.user ?? {};
+      const role: string = json.data.role ?? (json.data.admin ? "admin" : "doctor");
+      localStorage.setItem("token", json.data.token);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("role", role);
+      navigate(role === "admin" ? "/admin/overview" : "/doctor/overview");
+    } catch {
+      setError("Network error. Please check your connection.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <AuthNavigation label="Back to Home" path="/" />
-      <form className="lg:mr-[5%] xl:mr-[10%] max-w-[28rem] xl:max-w-[30rem] flex flex-col gap-y-4 md:gap-y-5 justify-center min-h-screen  p-4">
+      <form
+        onSubmit={handleSubmit}
+        className="lg:mr-[5%] xl:mr-[10%] max-w-[28rem] xl:max-w-[30rem] flex flex-col gap-y-4 md:gap-y-5 justify-center min-h-screen  p-4"
+      >
         <h1 className="text-[1.6rem] md:text-3xl font-semibold mr-auto ">
           Sign In
         </h1>
         <p className="text-muted-foreground mb-3 leading-5">
           Welcome back to Huza-Care! We're glad to see you again.
         </p>
+        {error && (
+          <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
+            {error}
+          </div>
+        )}
         <div className="space-y-5 w-full max-w-md">
           <div className="relative ">
             <div className="absolute inset-0 my-auto left-5 size-5">
               <Mail className="size-full text-muted-foreground" />
             </div>
-            <Input type="email" placeholder="Email" className="w-full px-12" />
+            <Input
+              type="email"
+              placeholder="Email"
+              className="w-full px-12"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
           <div className="relative ">
             <div className="absolute inset-0 my-auto left-5 size-5">
               <Lock className="size-full text-muted-foreground" />
             </div>
-            <div className="absolute inset-y-0 my-auto right-5 size-5">
-              <EyeOff className="size-full text-muted-foreground" />
-            </div>
+            <button
+              type="button"
+              className="absolute inset-y-0 my-auto right-5 size-5"
+              onClick={() => setShowPassword((v) => !v)}
+            >
+              {showPassword ? (
+                <Eye className="size-full text-muted-foreground" />
+              ) : (
+                <EyeOff className="size-full text-muted-foreground" />
+              )}
+            </button>
             <Input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               className="w-full px-12"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           <div>
@@ -50,11 +114,11 @@ const Login = () => {
             </div>
           </div>
           <Button
-            type="button"
-            onClick={() => navigate("/doctor/overview")}
+            type="submit"
+            disabled={loading}
             className="w-full h-11 md:h-12 mt-2 md:mt-4"
           >
-            Sign In
+            {loading ? "Signing in…" : "Sign In"}
           </Button>
         </div>
         <div>
