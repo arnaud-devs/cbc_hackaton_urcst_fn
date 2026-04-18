@@ -14,11 +14,20 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Book } from "@/pages/clinics/Book";
 import OnboardLayout from "@/layouts/OnboardingLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
+import AdminLayout from "@/layouts/AdminLayout";
 import Overview from "@/pages/dashboard/clinic/Overview";
 import Appointments from "@/pages/dashboard/clinic/Appointments";
 import Schedules from "@/pages/dashboard/clinic/Schedules";
 import Patients from "@/pages/dashboard/doctor/Patients";
 import PublicProfile from "@/pages/dashboard/clinic/PublicProfile";
+import Services from "@/pages/dashboard/clinic/Services";
+// Admin pages
+import AdminOverview from "@/pages/admin/Overview";
+import AdminDoctors from "@/pages/admin/Doctors";
+import AdminBookings from "@/pages/admin/Bookings";
+import AdminArticles from "@/pages/admin/Articles";
+import AdminServices from "@/pages/admin/Services";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 const Router = () => {
   return (
@@ -32,7 +41,6 @@ const Router = () => {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
         </Route>
-
         <Route element={<AuthLayout showIllustration={false} />}>
           <Route path="verify-otp" element={<VerifyOtp />} />
         </Route>
@@ -55,12 +63,26 @@ const Router = () => {
         <Route index element={<OnBoard />} />
       </Route>
       {/* Doctor Dashboard Routes */}
-      <Route path="/doctor" element={<DashboardLayout />}>
-        <Route path="overview" element={<Overview />} />
-        <Route path="appointments" element={<Appointments />} />
-        <Route path="schedules" element={<Schedules />} />
-        <Route path="patients" element={<Patients />} />
-        <Route path="profile" element={<PublicProfile />} />
+      <Route element={<ProtectedRoute requiredRole="doctor" />}>
+        <Route path="/doctor" element={<DashboardLayout />}>
+          <Route path="overview" element={<Overview />} />
+          <Route path="appointments" element={<Appointments />} />
+          <Route path="schedules" element={<Schedules />} />
+          <Route path="patients" element={<Patients />} />
+          <Route path="services" element={<Services />} />
+          <Route path="profile" element={<PublicProfile />} />
+        </Route>
+      </Route>
+      {/* Admin Dashboard Routes */}
+      <Route element={<ProtectedRoute requiredRole="admin" />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="overview" replace />} />
+          <Route path="overview" element={<AdminOverview />} />
+          <Route path="doctors" element={<AdminDoctors />} />
+          <Route path="bookings" element={<AdminBookings />} />
+          <Route path="articles" element={<AdminArticles />} />
+          <Route path="services" element={<AdminServices />} />
+        </Route>
       </Route>
     </Routes>
   );

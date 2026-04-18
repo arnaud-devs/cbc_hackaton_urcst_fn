@@ -180,7 +180,7 @@ const Overview = () => {
             </Link>
           </div>
           <div className="overflow-x-auto">
-            <AppointmentsTable showRecent />
+            <AppointmentsTable showRecent apiPath="doctor/bookings" />
           </div>
         </div>
         <div className="flex-1 lg:flex-2/5 space-y-7 bg-background rounded-md shadow-xl/5 p-8">

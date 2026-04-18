@@ -11,84 +11,37 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import {
+  BookOpen,
   CalendarCheck,
-  CalendarDays,
   LayoutDashboard,
   MessageCircleQuestionMark,
   Search,
   Settings,
-  UserRound,
+  Stethoscope,
   Users,
   type LucideProps,
 } from "lucide-react";
 import React, { type ElementType } from "react";
 import { Input } from "../ui/input";
 import { Link } from "react-router-dom";
+import type { ItemsTitle } from "./AppSidebar";
 
-export type ItemsTitle =
-  | "Overview"
-  | "Appointments"
-  | "Schedules"
-  | "My Patients"
-  | "My Profile"
-  | "Help Center"
-  | "Settings"
-  // Admin items
-  | "Doctors"
-  | "Bookings"
-  | "Articles";
-
-const items: {
+const adminItems: {
   title: ItemsTitle;
   url: string;
   section: string;
   icon: unknown;
 }[] = [
-  {
-    title: "Overview",
-    url: "overview",
-    section: "content",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Appointments",
-    url: "appointments",
-    section: "content",
-    icon: CalendarCheck,
-  },
-  {
-    title: "Schedules",
-    url: "schedules",
-    section: "content",
-    icon: CalendarDays,
-  },
-  {
-    title: "My Patients",
-    url: "patients",
-    section: "content",
-    icon: Users,
-  },
-  {
-    title: "My Profile",
-    url: "profile",
-    section: "content",
-    icon: UserRound,
-  },
-  {
-    title: "Help Center",
-    url: "#",
-    section: "footer",
-    icon: MessageCircleQuestionMark,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    section: "footer",
-    icon: Settings,
-  },
+  { title: "Overview", url: "overview", section: "content", icon: LayoutDashboard },
+  { title: "Doctors", url: "doctors", section: "content", icon: Users },
+  { title: "Bookings", url: "bookings", section: "content", icon: CalendarCheck },
+  { title: "Articles", url: "articles", section: "content", icon: BookOpen },
+  { title: "Services", url: "services", section: "content", icon: Stethoscope },
+  { title: "Help Center", url: "#", section: "footer", icon: MessageCircleQuestionMark },
+  { title: "Settings", url: "#", section: "footer", icon: Settings },
 ];
 
-const AppSidebar = () => {
+const AdminSidebar = () => {
   const { open, toggleSidebar, activeItem } = useSidebar();
 
   return (
@@ -97,18 +50,12 @@ const AppSidebar = () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <Link
-              to="/doctor/overview"
-              className="flex items-center gap-2 h-[2.8rem]  font-medium overflow-hidden"
+              to="/admin/overview"
+              className="flex items-center gap-2 h-[2.8rem] font-medium overflow-hidden"
             >
-              <div className="">
-                <figure className="w-f group-data-[collapsible=icon]:w-[2rem] w-[2.8rem] duration-200">
-                  <img
-                    src="/logo-light.png"
-                    className="size-full"
-                    alt="Huza-Care-Logo"
-                  />
-                </figure>
-              </div>
+              <figure className="w-f group-data-[collapsible=icon]:w-[2rem] w-[2.8rem] duration-200">
+                <img src="/logo-light.png" className="size-full" alt="HuzaCare" />
+              </figure>
               <span className="group-data-[collapsible=icon]:text-xs text-2xl sm:text-lg md:text-[1.1rem] duration-200">
                 HuzaCare
               </span>
@@ -120,7 +67,7 @@ const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenuItem className="list-none">
-              <SidebarMenuButton className="relative !bg-transparent h-fit rounded-none  p-0 ">
+              <SidebarMenuButton className="relative !bg-transparent h-fit rounded-none p-0">
                 <span
                   className={`${
                     !open
@@ -145,23 +92,17 @@ const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map(
+              {adminItems.map(
                 (item) =>
                   item.section === "content" && (
                     <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton
-                        isActive={activeItem === item.title}
-                        asChild
-                      >
+                      <SidebarMenuButton isActive={activeItem === item.title} asChild>
                         <Link to={item.url}>
                           {React.isValidElement(item.icon)
                             ? item.icon
-                            : React.createElement(
-                                item.icon as ElementType<LucideProps>,
-                                {
-                                  className: "w-5 h-5",
-                                }
-                              )}
+                            : React.createElement(item.icon as ElementType<LucideProps>, {
+                                className: "w-5 h-5",
+                              })}
                           <span>{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
@@ -175,7 +116,7 @@ const AppSidebar = () => {
           <SidebarGroupLabel>SUPPORT</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map(
+              {adminItems.map(
                 (item) =>
                   item.section === "footer" && (
                     <SidebarMenuItem key={item.title}>
@@ -183,12 +124,9 @@ const AppSidebar = () => {
                         <Link to={item.url}>
                           {React.isValidElement(item.icon)
                             ? item.icon
-                            : React.createElement(
-                                item.icon as ElementType<LucideProps>,
-                                {
-                                  className: "w-5 h-5",
-                                }
-                              )}
+                            : React.createElement(item.icon as ElementType<LucideProps>, {
+                                className: "w-5 h-5",
+                              })}
                           <span>{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
@@ -203,4 +141,4 @@ const AppSidebar = () => {
   );
 };
 
-export default AppSidebar;
+export default AdminSidebar;

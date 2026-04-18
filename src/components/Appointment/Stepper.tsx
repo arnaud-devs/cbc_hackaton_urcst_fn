@@ -13,7 +13,7 @@ const Stepper = ({
         <>
           <div
             key={index + "item"}
-            onClick={() => setCurrentStep(index + 1)}
+            onClick={() => index + 1 < currentStep && setCurrentStep(index + 1)}
             className="relative"
           >
             <span className="absolute -top-4 sm:-top-5 w-7 sm:w-8 md:w-9 lg:w-10 flex justify-center text-center text-nowrap text-[.8rem] md:text-[.9rem]">
