@@ -104,8 +104,8 @@ const CreateArticleForm = ({ onSuccess, onCancel }: CreateArticleFormProps) => {
     setFormData((prev) => ({
       ...prev,
       categories: checked
-        ? [...prev.categories, categoryTitle]
-        : prev.categories.filter((title) => title !== categoryTitle),
+        ? [...(prev.categories ?? []), categoryTitle]
+        : (prev.categories ?? []).filter((title) => title !== categoryTitle),
     }));
   };
 
@@ -176,7 +176,7 @@ const CreateArticleForm = ({ onSuccess, onCancel }: CreateArticleFormProps) => {
                 <label key={category.id} className="flex items-center space-x-2">
                   <input
                     type="checkbox"
-                    checked={formData.categories.includes(category.title)}
+                    checked={(formData.categories ?? []).includes(category.title)}
                     onChange={(e) => handleCategoryChange(category.title, e.target.checked)}
                     className="rounded"
                   />

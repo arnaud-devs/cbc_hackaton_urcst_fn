@@ -3,9 +3,12 @@ export interface Article {
   title: string;
   content: string;
   category: string;
+  coverPhoto: string;
+  status: "DRAFT" | "PUBLISHED";
   views: number;
   createdAt: string;
   admin: { name: string };
+  ArticleCategories: { id: string; title: string }[];
 }
 
 export interface ArticlesResponse {
@@ -16,7 +19,10 @@ export interface ArticlesResponse {
 export interface CreateArticleRequest {
   title: string;
   content: string;
-  category: string;
+  category?: string;
+  coverPhoto?: string;
+  status?: "DRAFT" | "PUBLISHED";
+  categories?: string[];
 }
 
 export interface CreateArticleResponse {
