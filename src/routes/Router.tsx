@@ -7,8 +7,8 @@ import Blog from "@/pages/blogs/Blog";
 import Blogs from "@/pages/blogs/Blogs";
 import ManageArticles from "@/pages/blogs/ManageArticles";
 import Home from "@/pages/home/Home";
-import Clinic from "@/pages/clinics/Clinic";
-import Clinics from "@/pages/clinics/Clinics";
+import DoctorsListing from "@/pages/doctors/DoctorsListing";
+import DoctorPage from "@/pages/doctors/DoctorPage";
 import OnBoard from "@/pages/onBoard/OnBoard";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Book } from "@/pages/clinics/Book";
@@ -17,8 +17,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import Overview from "@/pages/dashboard/clinic/Overview";
 import Appointments from "@/pages/dashboard/clinic/Appointments";
 import Schedules from "@/pages/dashboard/clinic/Schedules";
-import Doctors from "@/pages/dashboard/clinic/Doctors";
-import Doctor from "@/pages/dashboard/clinic/Doctor";
+import Patients from "@/pages/dashboard/doctor/Patients";
 import PublicProfile from "@/pages/dashboard/clinic/PublicProfile";
 
 const Router = () => {
@@ -43,31 +42,25 @@ const Router = () => {
         <Route path=":id" element={<Blog />} />
         <Route path="manage" element={<ManageArticles />} />
       </Route>
-      <Route path="/clinics" element={<MainLayout />}>
-        <Route index element={<Clinics />} />
-        <Route path=":id" element={<Clinic />} />
+      {/* Public doctor discovery routes */}
+      <Route path="/doctors" element={<MainLayout />}>
+        <Route index element={<DoctorsListing />} />
+        <Route path=":id" element={<DoctorPage />} />
       </Route>
       <Route path="/book" element={<MainLayout />}>
-        <Route index element={<Navigate to="/clinics" replace />} />
+        <Route index element={<Navigate to="/doctors" replace />} />
         <Route path=":id" element={<Book />} />
       </Route>
       <Route path="/onboard" element={<OnboardLayout />}>
         <Route index element={<OnBoard />} />
       </Route>
-      {/* Dashboard Routes */}
-      {/* Administrator Routes */}
-
-      {/* Clinic Routes */}
-      <Route path="/clinic" element={<DashboardLayout />}>
-        {/* <Route index element={<Navigate to="/overview" replace />} /> */}
+      {/* Doctor Dashboard Routes */}
+      <Route path="/doctor" element={<DashboardLayout />}>
         <Route path="overview" element={<Overview />} />
         <Route path="appointments" element={<Appointments />} />
         <Route path="schedules" element={<Schedules />} />
-        <Route path="doctors">
-          <Route index element={<Doctors />} />
-          <Route path=":id" element={<Doctor />} />
-        </Route>
-        <Route path="public" element={<PublicProfile />} />
+        <Route path="patients" element={<Patients />} />
+        <Route path="profile" element={<PublicProfile />} />
       </Route>
     </Routes>
   );

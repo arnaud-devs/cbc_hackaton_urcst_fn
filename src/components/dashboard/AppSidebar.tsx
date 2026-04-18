@@ -10,28 +10,27 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import {
   CalendarCheck,
   CalendarDays,
-  Hospital,
   LayoutDashboard,
   MessageCircleQuestionMark,
   Search,
   Settings,
+  UserRound,
+  Users,
   type LucideProps,
 } from "lucide-react";
 import React, { type ElementType } from "react";
 import { Input } from "../ui/input";
 import { Link } from "react-router-dom";
 
-// Menu items.
 export type ItemsTitle =
   | "Overview"
   | "Appointments"
   | "Schedules"
-  | "Doctors"
-  | "Public Profile"
+  | "My Patients"
+  | "My Profile"
   | "Help Center"
   | "Settings";
 
@@ -60,16 +59,16 @@ const items: {
     icon: CalendarDays,
   },
   {
-    title: "Doctors",
-    url: "doctors",
+    title: "My Patients",
+    url: "patients",
     section: "content",
-    icon: <Icon icon="hugeicons:doctor-01" width="24" height="24" />,
+    icon: Users,
   },
   {
-    title: "Public Profile",
-    url: "public",
+    title: "My Profile",
+    url: "profile",
     section: "content",
-    icon: Hospital,
+    icon: UserRound,
   },
   {
     title: "Help Center",
@@ -94,7 +93,7 @@ const AppSidebar = () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <Link
-              to="/clinic/overview"
+              to="/doctor/overview"
               className="flex items-center gap-2 h-[2.8rem]  font-medium overflow-hidden"
             >
               <div className="">

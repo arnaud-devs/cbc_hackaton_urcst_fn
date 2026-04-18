@@ -24,7 +24,7 @@ const Overview = () => {
   useEffect(() => {
     setBreadcrumb(undefined);
     setActiveItem("Overview");
-    setDashTitle("Good Morning, CHUK");
+    setDashTitle("Good Morning, Doctor");
   }, [setBreadcrumb, setActiveItem, setDashTitle]);
 
   const { setIsOpen } = useAppointmentDialogContext();
@@ -34,7 +34,7 @@ const Overview = () => {
       <div className="flex flex-wrap md:flex-nowrap justify-between gap-2 sm:gap-3 md:gap-4">
         <div className="flex flex-col min-w-[14rem] bg-white flex-1 h-44 lg:h-48 rounded-md shadow-xl/5">
           <Link
-            to="/clinic/appointments"
+            to="/doctor/appointments"
             className="cursor-pointer hover:text-primary group flex  items-center gap-2 border-b mx-2 h-14 xl:h-16 px-6"
           >
             <div className="bg-yellow-500/20 size-7 p-1 rounded-sm">
@@ -63,7 +63,7 @@ const Overview = () => {
         </div>
         <div className="flex flex-col min-w-[14rem] bg-white flex-1 h-44 lg:h-48 rounded-md shadow-xl/5">
           <Link
-            to="#"
+            to="/doctor/patients"
             className="cursor-pointer hover:text-primary group flex items-center gap-2 border-b mx-2 h-14 xl:h-16 px-6"
           >
             <div className="bg-purple-700/15 size-7 p-1 rounded-sm">
@@ -72,19 +72,19 @@ const Overview = () => {
                 className="text-purple-700 !size-full"
               />
             </div>
-            <h3 className="group-hover:underline font-medium">Doctors</h3>
+            <h3 className="group-hover:underline font-medium">My Patients</h3>
             <FaArrowRight className="group-hover:animate-bounce-x ml-auto" />
           </Link>
           <div className=" pl-15  my-auto lg:space-y-1">
             <div>
               <p className="font-medium text-4xl lg:text-5xl">50</p>
               <p className="text-[.9rem] text-muted-foreground/90">
-                Total Doctors
+                Total Patients
               </p>
             </div>
             <div className="bg-green-500/20 rounded w-fit px-2">
               <span className="text-[.8rem] text-green-600 font-medium">
-                15 Active
+                15 Today
               </span>
             </div>
           </div>
@@ -173,7 +173,7 @@ const Overview = () => {
           <div className="flex items-center justify-between">
             <h3 className="font-medium ">Recent Appointments</h3>
             <Link
-              to="/clinic/appointments"
+              to="/doctor/appointments"
               className="text-primary text-sm hover:underline"
             >
               View all

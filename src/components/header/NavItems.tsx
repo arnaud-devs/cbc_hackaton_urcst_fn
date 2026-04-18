@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export type NavbarItem =
   | "Home"
-  | "Clinics"
+  | "Doctors"
   | "Health"
   | "What is HuzaCare?"
   | "Success Stories";
@@ -19,7 +19,7 @@ const NavItems = ({
 
   const items: Array<{ label: NavbarItem; path: string }> = [
     { label: "Home", path: "/" },
-    { label: "Clinics", path: "/clinics" },
+    { label: "Doctors", path: "/doctors" },
     { label: "Health", path: "/health" },
     { label: "What is HuzaCare?", path: "/#what-is-huza-care" },
     { label: "Success Stories", path: "/#success-stories" },
