@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useNavbarContext } from "@/context/NavbarContext";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+const API_BASE = import.meta.env.VITE_API_URL ?? "https://cbc-hackaton-urcst-bn.onrender.com/api";
 
 interface DoctorProfile {
   id: string;
