@@ -16,16 +16,16 @@ const HeroSection = () => {
       <div className="w-full md:max-w-[52rem]  lg:max-w-[39.5rem] z-20 mx-[1%] mt-14 sm:mt-16 px-5 sm:px-8 md:px-12 md:mt-20 py-12">
         <div className="text-[1.45rem] xs:text-[1.6rem] sm:text-[1.8rem] md:text-[2.1rem] lg:text-4xl font-semibold leading-8 md:leading-10 xl:leading-12">
           <p>Why wait?</p>
-          <p className="flex flex-col lg:flex-row  text-nowrap gap-x-2  lg:w-[100%]">
-            <span>Book your clinic</span>
+          <p className="flex flex-col lg:flex-row text-nowrap gap-x-2 lg:w-[100%]">
+            <span>Book your doctor</span>
             <span>appointment online.</span>
           </p>
           <p>Fast, easy, and reliable.</p>
         </div>
         <div className="space-y-4 mt-5 xs:mt-8 md:mt-12">
           <p className="max-w-[29rem] lg:max-w-none text-[.95rem] md:text-base text-justify">
-            Avoid long waits at clinics, Find nearby clinics so you can book an
-            appointment with a doctor without leaving your location.
+            Skip the waiting room. Browse verified doctors, check their availability,
+            and book your appointment in minutes — from anywhere.
           </p>
           <div className="relative">
             <figure className="absolute -bottom-1  -right-4 lg:hidden w-[13rem] sm:w-[14.5rem] md:w-[16rem] -z-10">

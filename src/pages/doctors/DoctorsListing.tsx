@@ -8,8 +8,9 @@ import BookingBtn from "@/components/Appointment/BookingBtn";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
+import { getDoctorImage } from "@/constants/doctorImages";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+const API_BASE = import.meta.env.VITE_API_URL ?? "https://cbc-hackaton-urcst-bn.onrender.com/api";
 
 interface Doctor {
   id: string;
@@ -21,7 +22,7 @@ interface Doctor {
   availableSlots: string[];
 }
 
-const DoctorCard = ({ doctor }: { doctor: Doctor }) => (
+const DoctorCard = ({ doctor, index }: { doctor: Doctor; index: number }) => (
   <div className="flex flex-col sm:flex-row gap-y-1 gap-x-4 md:gap-x-6 lg:gap-x-8 border-b pb-6">
     <figure className="cursor-pointer hover:brightness-90 duration-300 relative w-full h-[13rem] min-w-[19rem] sm:w-[18rem] sm:h-[14.6rem] md:w-[22rem] md:h-[15rem] lg:w-[24rem] lg:h-[16.5rem] xl:w-[26rem] rounded-md overflow-hidden bg-muted flex items-center justify-center">
       <div className="absolute top-3 left-3 z-10 px-2 py-[2px] rounded text-xs font-medium text-white bg-green-500">
@@ -29,9 +30,9 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => (
       </div>
       <Link to={doctor.id}>
         <img
-          src="/user-profile.png"
+          src={getDoctorImage(index)}
           alt={doctor.name}
-          className="w-40 h-44 object-cover opacity-80 mt-4 mx-auto"
+          className="w-full h-full object-cover object-top"
         />
       </Link>
     </figure>
@@ -178,7 +179,7 @@ const DoctorsListing = () => {
         )}
         <div className="flex items-center flex-col gap-y-10 sm:gap-y-8">
           {filtered.map((doctor) => (
-            <DoctorCard key={doctor.id} doctor={doctor} />
+            <DoctorCard key={doctor.id} doctor={doctor} index={filtered.indexOf(doctor)} />
           ))}
         </div>
       </div>

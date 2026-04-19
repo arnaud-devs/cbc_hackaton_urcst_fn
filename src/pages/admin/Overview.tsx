@@ -6,7 +6,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { CalendarCheck, Users, BookOpen, Stethoscope } from "lucide-react";
 import AppointmentsTable from "@/components/dashboard/AppointmentsTable";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+const API_BASE = import.meta.env.VITE_API_URL ?? "https://cbc-hackaton-urcst-bn.onrender.com/api";
 
 function authHeaders(): Record<string, string> {
   const token = localStorage.getItem("token");

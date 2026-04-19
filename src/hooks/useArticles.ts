@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { Article, CreateArticleRequest } from '@/types/article';
 import { articleService } from '@/services/articleService';
+import { FALLBACK_ARTICLES } from '@/constants/fallbackArticles';
 
 export const useArticles = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -12,9 +13,9 @@ export const useArticles = () => {
     setError(null);
     try {
       const response = await articleService.getArticles();
-      setArticles(response.data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch articles');
+      setArticles(response.data?.length ? response.data : FALLBACK_ARTICLES);
+    } catch {
+      setArticles(FALLBACK_ARTICLES);
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getDoctorImage } from "@/constants/doctorImages";
 import { useNavbarContext } from "@/context/NavbarContext";
 import { useSidebar } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
@@ -20,7 +21,7 @@ import {
   Check,
 } from "lucide-react";
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "";
+const API_BASE = import.meta.env.VITE_API_URL ?? "https://cbc-hackaton-urcst-bn.onrender.com/api";
 
 interface Doctor {
   id: string;
@@ -210,12 +211,12 @@ const AdminDoctors = () => {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((doc) => (
+              {filtered.map((doc, index) => (
                 <tr key={doc.id} className="border-b last:border-0 hover:bg-muted/30">
                   <td className="py-3 pl-2">
                     <div className="flex items-center gap-3">
                       <figure className="size-9 rounded-full bg-muted overflow-hidden shrink-0">
-                        <img src="/user-profile.png" alt={doc.name} className="size-full object-cover opacity-80" />
+                        <img src={getDoctorImage(index)} alt={doc.name} className="size-full object-cover object-top" />
                       </figure>
                       <div>
                         <p className="font-medium">{doc.name}</p>
