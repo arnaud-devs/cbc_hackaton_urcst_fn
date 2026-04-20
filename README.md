@@ -7,7 +7,7 @@
 
 ## 💡 About The Project
 
-HUZA-CARE ...
+HUZA-CARE
 
 ## 🛠️ Tech Stack
 
